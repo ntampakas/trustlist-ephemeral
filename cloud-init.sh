@@ -5,7 +5,7 @@ trap 'poweroff' TERM EXIT INT
 
 # poweroff script
 cat >> /etc/crontab << 'EOF'
-*/1 * * * * root shutdown +5
+*/1 * * * * root sleep 1
 EOF
 
 # basics
