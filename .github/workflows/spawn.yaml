@@ -40,4 +40,4 @@ jobs:
   
       - name: Spawn instance
         run: |
-            .spawn.sh ${{ env.DATA }}
+            ./spawn.sh ${{ env.DATA }}
