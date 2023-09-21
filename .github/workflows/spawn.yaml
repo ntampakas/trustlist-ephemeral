@@ -1,0 +1,43 @@
+name: spawn
+on:
+  workflow_dispatch:
+    inputs:
+      drill:
+        description: "Drill"
+        required: true
+        default: "spawn"
+        type: choice
+        options:
+        - spawn
+        - term
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    env:
+      DATA: ${{ github.event.inputs.drill || 'spawn' }}
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+  
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::490752553772:role/GH-Actions-Drill
+          role-duration-seconds: 300
+          aws-region: eu-central-1
+  
+      - name: Spawn instance
+        run: |
+            .spawn.sh ${{ env.DATA }}
