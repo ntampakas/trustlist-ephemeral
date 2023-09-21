@@ -3,9 +3,12 @@
 set -eux
 
 EXIT_CODE=0
+TRIGGER=$1
 AMI="ami-04e601abe3e1a910f"
 SG="sg-03c0a0de6836d583d"
 SUBNET="subnet-07ce3c81e409f4e14"
+
+echo $TRIGGER
 
 aws ec2 run-instances \
   --user-data "file://cloud-init.sh" \
