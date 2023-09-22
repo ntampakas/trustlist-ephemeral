@@ -6,23 +6,19 @@ TRIGGER=$1
 AMI="ami-04e601abe3e1a910f"
 SG="sg-03c0a0de6836d583d"
 SUBNET="subnet-07ce3c81e409f4e14"
+VPC="vpc-05dedcb650bd24f8d"
 
 # Kill old instances
 CURRENT_TIME_EPOCH=$(date -d `date -Is` +"%s")
-EC2=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=[running]" "Name=tag:Name,Values='Drill'" --query "Reservations[*].Instances[*].InstanceId" --output text)
+EC2=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=[running]" "Name=tag:Name,Values='Drill'" "Name=network-interface.vpc-id,Values=[$VPC]" --query "Reservations[*].Instances[*].InstanceId" --output text)
 for i in $EC2; do
   EC2_LAUNCH_TIME=$(aws ec2 describe-instances --instance-ids $i --query 'Reservations[*].Instances[*].LaunchTime' --output text)
   LAUNCH_TIME_EPOCH=$(date -d $EC2_LAUNCH_TIME +"%s")
   diff=$(expr $CURRENT_TIME_EPOCH - $LAUNCH_TIME_EPOCH)
 
-  echo $diff
-
   #if [ $diff -gt 43200 ]; then
   if [ $diff -gt 1000 ]; then
-    echo "terminate"
     aws ec2 terminate-instances --instance-ids $i
-  else
-    echo "skip"
   fi
 done
 
