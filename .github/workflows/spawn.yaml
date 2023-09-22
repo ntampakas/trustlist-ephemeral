@@ -38,6 +38,6 @@ jobs:
           role-duration-seconds: 900
           aws-region: eu-central-1
   
-      - name: Spawn instance
+      - name: Launch instance
         run: |
-            ./spawn.sh ${{ env.DATA }}
+            ./run.sh ${{ env.DATA }}
