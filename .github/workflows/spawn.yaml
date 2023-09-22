@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     env:
-      DATA: ${{ github.event.inputs.drill || 'spawn' }}
+      DATA: ${{ github.event.inputs.drill || 'maintenance' }}
     permissions:
       id-token: write
       contents: read
