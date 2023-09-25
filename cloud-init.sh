@@ -3,6 +3,9 @@
 set -eux
 trap 'poweroff' TERM EXIT INT
 
+Repo=$(curl http://169.254.169.254/latest/meta-data/tags/instance/Repo)
+Branch=$(curl http://169.254.169.254/latest/meta-data/tags/instance/Branch)
+
 # Install pkgs
 apt-get update
 apt-get install -y net-tools
@@ -18,6 +21,6 @@ apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 usermod -aG docker ubuntu
 
-#git clone -b $branch --single-branch 
+git clone -b $Branch --single-branch https://github.com/ntampakas/$Repo.git
 
 sleep 12h
