@@ -21,6 +21,6 @@ apt-get update
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 usermod -aG docker ubuntu
 
-su -P ubuntu -c 'git clone -b $Branch --single-branch https://github.com/ntampakas/$Repo.git /home/$USER/$Repo'
+#su -P ubuntu -c 'git clone -b $Branch --single-branch https://github.com/ntampakas/$Repo.git /home/$USER/$Repo'
 
 sleep 12h
