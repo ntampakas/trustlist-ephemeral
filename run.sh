@@ -31,7 +31,7 @@ aws ec2 run-instances \
   --user-data "file://cloud-init.sh" \
   --image-id $AMI \
   --count 1 \
-  --instance-type t3.micro \
+  --instance-type t3.xlarge \
   --key-name devops \
   --security-group-ids $SG \
   --subnet-id $SUBNET \
