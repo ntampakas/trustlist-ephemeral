@@ -5,7 +5,7 @@ set -eux
 TRIGGER=$1
 BRANCH=$2
 ACTOR=$3
-HEAD_REF=$4
+SHA=$4
 AMI="ami-04e601abe3e1a910f"
 SG="sg-03c0a0de6836d583d"
 SUBNET="subnet-07ce3c81e409f4e14"
@@ -39,7 +39,7 @@ aws ec2 run-instances \
   --subnet-id $SUBNET \
   --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"VolumeSize\":20,\"DeleteOnTermination\":true}}]" \
   --instance-initiated-shutdown-behavior terminate \
-  --tag-specification "ResourceType=instance,Tags=[{Key=Name,Value="Drill-$ACTOR-$HEAD_REF"},{Key=Repo,Value="trustlist"},{Key=Branch,Value="$BRANCH"}]" \
+  --tag-specification "ResourceType=instance,Tags=[{Key=Name,Value="Drill-$ACTOR-$SHA"},{Key=Repo,Value="trustlist"},{Key=Branch,Value="$BRANCH"}]" \
   --metadata-options "InstanceMetadataTags=enabled"
 
 # Create deployment group if not exists
