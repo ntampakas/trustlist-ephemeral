@@ -13,7 +13,7 @@ VPC="vpc-05dedcb650bd24f8d"
 
 # Kill old instances
 CURRENT_TIME_EPOCH=$(date -d `date -Is` +"%s")
-EC2=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=[running]" "Name=tag:Name,Values='Drill'" "Name=network-interface.vpc-id,Values=[$VPC]" --query "Reservations[*].Instances[*].InstanceId" --output text)
+EC2=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=[running]" "Name=tag:Name,Values='Drill-*'" "Name=network-interface.vpc-id,Values=[$VPC]" --query "Reservations[*].Instances[*].InstanceId" --output text)
 for i in $EC2; do
   EC2_LAUNCH_TIME=$(aws ec2 describe-instances --instance-ids $i --query 'Reservations[*].Instances[*].LaunchTime' --output text)
   LAUNCH_TIME_EPOCH=$(date -d $EC2_LAUNCH_TIME +"%s")
