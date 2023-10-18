@@ -4,6 +4,7 @@ set -eux
 
 TRIGGER=$1
 BRANCH=$2
+ACTOR=$3
 AMI="ami-04e601abe3e1a910f"
 SG="sg-03c0a0de6836d583d"
 SUBNET="subnet-07ce3c81e409f4e14"
