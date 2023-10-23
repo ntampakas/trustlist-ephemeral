@@ -3,7 +3,8 @@
 set -eux
 
 TRIGGER=$1
-BRANCH=$2
+#BRANCH=$2
+BRANCH="main"
 ACTOR=$3
 SHA=$4
 AMI="ami-04e601abe3e1a910f"
