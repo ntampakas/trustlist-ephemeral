@@ -28,4 +28,4 @@ su -P ubuntu -c "sed -i \"s/http:\/\/127.0.0.1:8000/http:\/\/$Local_IP:8000/g\" 
 su -P ubuntu -c "sed -i \"s/node-ip/$Local_IP/\" /home/ubuntu/$Repo/compose.yaml"
 su -P ubuntu -c "cd /home/ubuntu/$Repo ; docker compose up -d"
 
-sleep 12h
+sleep 5m
