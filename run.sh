@@ -28,6 +28,11 @@ done
 # Stop here in schedule
 [ ! $TRIGGER = "maintenance" ] || exit 0
 
+# Check if actor ec2 exists
+ACTOR_EC2=$(aws ec2 describe-instances --filters "Name=instance-state-name,Values=[running]" "Name=tag:Name,Values='Drill-$ACTOR-*'" "Name=network-interface.vpc-id,Values=[$VPC]" --query "Reservations[*].Instances[*].InstanceId" --output text)
+
+[ -z $ACTOR_EC2 ] || aws ec2 terminate-instances --instance-ids $ACTOR_EC2
+
 # Launch new instance
 aws ec2 run-instances \
   --user-data "file://cloud-init.sh" \
