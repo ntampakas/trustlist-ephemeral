@@ -25,7 +25,7 @@ usermod -aG docker ubuntu
 
 su -P ubuntu -c "git clone -b $Branch --single-branch https://github.com/ntampakas/$Repo.git /home/ubuntu/$Repo"
 su -P ubuntu -c "sed -i "s/http:\/\/127.0.0.1:8000/http:\/\/$Local_IP:8000/g" /home/ubuntu/$Repo/packages/frontend/src/config.ts"
-su -P ubuntu -c "sed -i "s/node-ip/$Local_IP/" /home/ubuntu/compose.yaml"
+su -P ubuntu -c "sed -i "s/node-ip/$Local_IP/" /home/ubuntu/$Repo/compose.yaml"
 #su -P ubuntu -c "cd /home/ubuntu/$Repo ; docker compose up -d"
 
 sleep 12h
